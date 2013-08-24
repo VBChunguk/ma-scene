@@ -37,7 +37,8 @@
 
         public override string ToString()
         {
-            return string.Format("Character ID {0} at position #{1}", mId, mPosition);
+            if (mId != null) return string.Format("Character ID {0} at position #{1}", mId, mPosition);
+            else return string.Format("Clear character at position #{0}", mPosition);
         }
     }
 }

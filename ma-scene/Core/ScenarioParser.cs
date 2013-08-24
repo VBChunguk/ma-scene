@@ -79,7 +79,7 @@ namespace Vbc.MA.Scenario.Core
                         isConv = false;
                     }
                     string args = buf.Substring(1);
-                    string[] argsSplit = args.Split(new char[] { ' ' }, 2);
+                    string[] argsSplit = args.Split(new char[] { ' ' }, 2, System.StringSplitOptions.RemoveEmptyEntries);
                     if (argsSplit.Length > 1)
                         ret.Add(new CharacterCommand(int.Parse(argsSplit[0]), argsSplit[1]));
                     else
