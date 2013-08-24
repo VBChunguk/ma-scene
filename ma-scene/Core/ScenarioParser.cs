@@ -60,8 +60,12 @@ namespace Vbc.MA.Scenario.Core
                         isConv = false;
                     }
                     string idRaw = buf.Substring(3);
-                    int id = int.Parse(idRaw);
-                    ret.Add(new BackgroundCommand(id));
+                    if (string.IsNullOrWhiteSpace(idRaw)) ret.Add(new BackgroundCommand());
+                    else
+                    {
+                        int id = int.Parse(idRaw);
+                        ret.Add(new BackgroundCommand(id));
+                    }
                 }
                 else if (buf.StartsWith("MU ")) // music
                 {

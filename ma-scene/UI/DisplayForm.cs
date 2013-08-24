@@ -96,7 +96,7 @@ namespace Vbc.MA.Scenario.UI
             mBG = -1;
             mBGImage = null;
 
-            StartNew(@"E:\Document-related\research\download\scenario\scsc_50090501");
+            StartNew(@"E:\Document-related\research\download\scenario\scsc_50080401");
         }
 
         public void StartNew(string path)

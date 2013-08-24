@@ -16,6 +16,15 @@
         }
 
         /// <summary>
+        /// 빈 배경으로 새 인스턴스를 초기화합니다.
+        /// </summary>
+        public BackgroundCommand()
+            : base(CommandType.Background)
+        {
+            mId = -1;
+        }
+
+        /// <summary>
         /// 배경 이미지 ID로 새 인스턴스를 초기화합니다.
         /// </summary>
         /// <param name="id">배경 이미지 ID입니다.</param>
