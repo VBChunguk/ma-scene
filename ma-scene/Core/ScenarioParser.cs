@@ -42,11 +42,6 @@ namespace Vbc.MA.Scenario.Core
                 if (buf == null) break;
                 if (buf.StartsWith("TI ")) // title
                 {
-                    if (isConv)
-                    {
-                        ret.Add(new ConversationCommand(name, context));
-                        isConv = false;
-                    }
                     string titleRaw = buf.Substring(3);
                     string[] titleSplit = titleRaw.Split(new char[] { ',' }, 2);
                     string title = titleSplit.Length > 1 ? titleSplit[1].Trim() : titleSplit[0].Trim();
@@ -54,11 +49,6 @@ namespace Vbc.MA.Scenario.Core
                 }
                 else if (buf.StartsWith("BG ")) // bg
                 {
-                    if (isConv)
-                    {
-                        ret.Add(new ConversationCommand(name, context));
-                        isConv = false;
-                    }
                     string idRaw = buf.Substring(3);
                     if (string.IsNullOrWhiteSpace(idRaw)) ret.Add(new BackgroundCommand());
                     else
@@ -69,19 +59,9 @@ namespace Vbc.MA.Scenario.Core
                 }
                 else if (buf.StartsWith("MU ")) // music
                 {
-                    if (isConv)
-                    {
-                        ret.Add(new ConversationCommand(name, context));
-                        isConv = false;
-                    }
                 }
                 else if (buf.StartsWith("C")) // character
                 {
-                    if (isConv)
-                    {
-                        ret.Add(new ConversationCommand(name, context));
-                        isConv = false;
-                    }
                     string args = buf.Substring(1);
                     string[] argsSplit = args.Split(new char[] { ' ' }, 2, System.StringSplitOptions.RemoveEmptyEntries);
                     if (argsSplit.Length > 1)
@@ -91,21 +71,24 @@ namespace Vbc.MA.Scenario.Core
                 }
                 else if (buf.StartsWith("<")) // special
                 {
-                    if (isConv)
-                    {
-                        ret.Add(new ConversationCommand(name, context));
-                        isConv = false;
-                    }
                 }
                 else // conversation
                 {
-                    if (isConv) context += buf + "\r\n";
+                    if (isConv)
+                    {
+                        context += buf + "\r\n";
+                        if (buf.EndsWith("」"))
+                        {
+                            ret.Add(new ConversationCommand(name, context));
+                            isConv = false;
+                        }
+                    }
                     else
                     {
                         name = buf;
                         context = string.Empty;
+                        isConv = true;
                     }
-                    isConv = true;
                 }
             }
             if (isConv)
