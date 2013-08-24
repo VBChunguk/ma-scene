@@ -63,6 +63,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\CharacterCommand.cs" />
+    <Compile Include="Core\ConversationCommand.cs" />
+    <Compile Include="Core\ScenarioCommand.cs" />
+    <Compile Include="Core\ScenarioParser.cs" />
+    <Compile Include="Core\TitleCommand.cs" />
     <Compile Include="DisplayForm.cs">
       <SubType>Form</SubType>
     </Compile>
