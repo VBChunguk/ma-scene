@@ -34,5 +34,10 @@
             mPosition = position;
             mId = id;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Character ID {0} at position #{1}", mId, mPosition);
+        }
     }
 }

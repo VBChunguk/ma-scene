@@ -24,5 +24,10 @@
         {
             mId = id;
         }
+
+        public override string ToString()
+        {
+            return "BG " + mId;
+        }
     }
 }
