@@ -104,6 +104,11 @@ namespace Vbc.MA.Scenario.Core
                     isConv = true;
                 }
             }
+            if (isConv)
+            {
+                ret.Add(new ConversationCommand(name, context));
+                isConv = false;
+            }
             reader.Close();
             return ret.ToArray();
         }
