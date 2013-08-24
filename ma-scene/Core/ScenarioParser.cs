@@ -59,6 +59,9 @@ namespace Vbc.MA.Scenario.Core
                         ret.Add(new ConversationCommand(name, context));
                         isConv = false;
                     }
+                    string idRaw = buf.Substring(3);
+                    int id = int.Parse(idRaw);
+                    ret.Add(new BackgroundCommand(id));
                 }
                 else if (buf.StartsWith("MU ")) // music
                 {
