@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Vbc.MA.Sceneario.Properties {
+namespace Vbc.MA.Scenario.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -1,4 +1,4 @@
-﻿namespace Vbc.MA.Sceneario.Core
+﻿namespace Vbc.MA.Scenario.Core
 {
     /// <summary>
     /// 제목 커맨드의 내용을 담는 클래스입니다.

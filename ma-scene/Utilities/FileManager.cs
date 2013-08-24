@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Vbc.MA.Sceneario.Utilities
+namespace Vbc.MA.Scenario.Utilities
 {
     /// <summary>
     /// 밀리언아서 파일을 관리하는 정적 클래스입니다.

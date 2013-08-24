@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Vbc.MA.Sceneario.Utilities
+namespace Vbc.MA.Scenario.Utilities
 {
     /// <summary>
     /// 밀리언아서 데이터 복호화 스트림을 구현합니다.

@@ -1,4 +1,4 @@
-﻿namespace Vbc.MA.Sceneario.Core
+﻿namespace Vbc.MA.Scenario.Core
 {
     /// <summary>
     /// 시나리오 커맨드의 종류를 나타냅니다.

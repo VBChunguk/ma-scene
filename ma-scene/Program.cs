@@ -16,7 +16,7 @@ namespace Vbc.MA.Scenario
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DisplayForm());
+            Application.Run(new UI.DisplayForm());
         }
     }
 }

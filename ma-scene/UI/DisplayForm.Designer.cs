@@ -1,4 +1,4 @@
-﻿namespace Vbc.MA.Scenario
+﻿namespace Vbc.MA.Scenario.UI
 {
     partial class DisplayForm
     {
@@ -34,8 +34,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(960, 640);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
             this.Name = "DisplayForm";
             this.Text = "Display";
             this.ResumeLayout(false);
@@ -43,6 +45,7 @@
         }
 
         #endregion
+
     }
 }
 

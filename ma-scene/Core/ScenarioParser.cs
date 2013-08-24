@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace Vbc.MA.Sceneario.Core
+namespace Vbc.MA.Scenario.Core
 {
     /// <summary>
     /// 시나리오 스크립트를 해석하는 메서드를 가진 정적 클래스입니다.
