@@ -49,7 +49,7 @@ namespace Vbc.MA.Scenario.Core
                     }
                     string titleRaw = buf.Substring(3);
                     string[] titleSplit = titleRaw.Split(new char[] { ',' }, 2);
-                    string title = titleSplit.Length > 1 ? titleSplit[0].Trim() : titleSplit[1].Trim();
+                    string title = titleSplit.Length > 1 ? titleSplit[1].Trim() : titleSplit[0].Trim();
                     ret.Add(new TitleCommand(title));
                 }
                 else if (buf.StartsWith("BG ")) // bg
