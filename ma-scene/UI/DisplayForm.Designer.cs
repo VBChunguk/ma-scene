@@ -17,6 +17,8 @@
             {
                 components.Dispose();
             }
+            mNameFont.Dispose();
+            mContextFont.Dispose();
             base.Dispose(disposing);
         }
 
@@ -36,10 +38,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(960, 640);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "DisplayForm";
             this.Text = "Display";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Background_Paint);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DisplayForm_MouseDown);
             this.ResumeLayout(false);
 
         }
