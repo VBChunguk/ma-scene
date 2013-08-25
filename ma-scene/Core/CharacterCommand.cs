@@ -40,5 +40,14 @@
             if (mId != null) return string.Format("Character ID {0} at position #{1}", mId, mPosition);
             else return string.Format("Clear character at position #{0}", mPosition);
         }
+
+        public override string Raw
+        {
+            get
+            {
+                if (mId != null) return string.Format("C{0} {1}", mPosition, mId);
+                else return string.Format("C{0}", mPosition);
+            }
+        }
     }
 }

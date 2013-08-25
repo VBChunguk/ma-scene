@@ -35,9 +35,9 @@
             mContext = context;
         }
 
-        public override string ToString()
+        public override string Raw
         {
-            return string.Format("{0}\r\n{1}", mName, mContext);
+            get { return string.Format("{0}\r\n{1}", mName, mContext); }
         }
     }
 }

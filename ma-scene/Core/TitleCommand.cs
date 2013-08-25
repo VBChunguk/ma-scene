@@ -29,5 +29,10 @@
         {
             return mTitle;
         }
+
+        public override string Raw
+        {
+            get { return string.Format("TI {0}", mTitle); }
+        }
     }
 }

@@ -66,5 +66,26 @@
         {
             mCommandType = type;
         }
+
+        /// <summary>
+        /// 처리되지 않은 데이터 원본을 가져옵니다.
+        /// </summary>
+        public abstract string Raw
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 커맨드의 종류를 가져옵니다.
+        /// </summary>
+        public CommandType Type
+        {
+            get { return mCommandType; }
+        }
+
+        public override string ToString()
+        {
+            return Raw;
+        }
     }
 }

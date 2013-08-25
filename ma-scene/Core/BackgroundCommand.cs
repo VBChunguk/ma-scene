@@ -38,5 +38,10 @@
         {
             return "BG " + mId;
         }
+
+        public override string Raw
+        {
+            get { return mId != -1 ? string.Format("BG {0}", mId) : "BG "; }
+        }
     }
 }

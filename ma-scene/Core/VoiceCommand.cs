@@ -24,5 +24,15 @@
         {
             mId = id;
         }
+
+        public override string Raw
+        {
+            get { return string.Format("VO {0}", mId); }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Play voice {0}", mId);
+        }
     }
 }
