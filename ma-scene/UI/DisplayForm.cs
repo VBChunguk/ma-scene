@@ -23,6 +23,7 @@ namespace Vbc.MA.Scenario.UI
         private string[] mIds;
         private int[] mIdLastUsed;
         private int mBG;
+        private Color mBGColor;
         private Image[] mCrtBase;
         private Image[] mCrtAdditional;
         private Image mBGImage;
@@ -61,11 +62,26 @@ namespace Vbc.MA.Scenario.UI
             if (idSplit.Length > 1)
             {
                 if (idSplit[1] != "1") baseId = string.Format("{0}_{1}_1", idSplit[0], idSplit[1]);
+                if (idSplit[1] == "1" && idSplit[2] == "1") id = baseId;
             }
-            mCrtBase[position] = new Bitmap(Utilities.FileManager.GetCharacterStreamById(baseId));
+            try
+            {
+                mCrtBase[position] = new Bitmap(Utilities.FileManager.GetCharacterStreamById(baseId));
+            }
+            catch (Exception)
+            {
+                mCrtBase[position] = null;
+            }
             if (baseId != id)
             {
-                mCrtAdditional[position] = new Bitmap(Utilities.FileManager.GetCharacterStreamById(id));
+                try
+                {
+                    mCrtAdditional[position] = new Bitmap(Utilities.FileManager.GetCharacterStreamById(id));
+                }
+                catch (Exception)
+                {
+                    mCrtBase[position] = null;
+                }
             }
         }
 
@@ -75,14 +91,31 @@ namespace Vbc.MA.Scenario.UI
             private set
             {
                 mTitle = value;
-                if (string.IsNullOrWhiteSpace(mTitle)) this.Text = "Display";
+                if (string.IsNullOrWhiteSpace(mTitle)) this.Text = "<제목 없음>";
                 else this.Text = mTitle;
             }
         }
 
         public DisplayForm()
         {
-            Utilities.FileManager.BasePath = @"E:\Document-related\research";
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "(SD 카드)/Android/data/com.square_enix.million_kr/files/save/ 디렉터리를 골라 주세요.";
+            string[] roots = Directory.GetLogicalDrives();
+            foreach (string root in roots)
+            {
+                string tpath = Path.Combine(root, @"Android\data\com.square_enix.million_kr\files\save");
+                if (Directory.Exists(tpath))
+                {
+                    fbd.SelectedPath = tpath;
+                    break;
+                }
+            }
+            fbd.ShowDialog();
+            Utilities.FileManager.BasePath = fbd.SelectedPath;
+            if (!Utilities.FileManager.IsValidPath)
+            {
+            }
+
             InitializeComponent();
             mNameFont = new Font("나눔고딕", 20);
             mContextFont = new Font("나눔고딕", 28);
@@ -96,7 +129,17 @@ namespace Vbc.MA.Scenario.UI
             mBG = -1;
             mBGImage = null;
 
-            StartNew(@"E:\Document-related\research\download\scenario\scsc_50080401");
+            StartNew();
+        }
+
+        public void StartNew()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "모든 파일|*";
+            ofd.Multiselect = false;
+            ofd.InitialDirectory = Path.Combine(Utilities.FileManager.BasePath, @"download\scenario");
+            ofd.ShowDialog();
+            StartNew(ofd.FileName);
         }
 
         public void StartNew(string path)
@@ -115,15 +158,16 @@ namespace Vbc.MA.Scenario.UI
                 mCrtAdditional[i] = null;
             }
             mBG = -1;
+            mBGColor = Color.Black;
             ScenarioCommand title = mCommandList[mCursor++];
-            if (!(title is TitleCommand)) // invalid
+            if (!(title is TitleCommand)) // no title
             {
-                mCommandList = null;
-                mCursor = -1;
+                mCursor = 0;
                 Title = null;
                 return;
             }
             Title = (title as TitleCommand).Title;
+            Invalidate();
         }
 
         private ScenarioCommand ExecuteNext()
@@ -145,6 +189,7 @@ namespace Vbc.MA.Scenario.UI
             {
                 BackgroundCommand bg = command as BackgroundCommand;
                 BG = bg.Id;
+                mBGColor = bg.BackgroundColor;
             }
             return command;
         }
@@ -164,14 +209,26 @@ namespace Vbc.MA.Scenario.UI
         {
             Graphics g = e.Graphics;
             Brush contextAreaBrush = new SolidBrush(Color.FromArgb(192, Color.Black));
-            g.Clear(Color.Black);
-            g.DrawString(mTitle, mContextFont, Brushes.White, new RectangleF(.0f, .0f, 960.0f, 320.0f),
-                new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Far });
-            g.DrawString("클릭해서 넘기세요", mNameFont, Brushes.White, new RectangleF(.0f, 320.0f, 960.0f, 320.0f),
-                new StringFormat() { Alignment = StringAlignment.Center });
-            if (mBG != -1)
+            g.Clear(Color.White);
+            if (mCursor > 1)
             {
-                g.DrawImageUnscaled(mBGImage, 0, 0); // bg draw
+                if (mBG != -1)
+                {
+                    g.DrawImageUnscaled(mBGImage, 0, 0); // bg draw
+                }
+                else // colored bg
+                {
+                    Brush backgroundColorBrush = new SolidBrush(mBGColor);
+                    g.FillRectangle(backgroundColorBrush, new Rectangle(0, 0, 960, 640));
+                    backgroundColorBrush.Dispose();
+                }
+            }
+            else
+            {
+                g.DrawString(mTitle, mContextFont, Brushes.Black, new RectangleF(.0f, .0f, 960.0f, 320.0f),
+                new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Far });
+                g.DrawString("클릭해서 넘기세요", mNameFont, Brushes.Black, new RectangleF(.0f, 320.0f, 960.0f, 320.0f),
+                    new StringFormat() { Alignment = StringAlignment.Center });
             }
             // sorting
             int[] renderRank = new int[8];
@@ -219,8 +276,9 @@ namespace Vbc.MA.Scenario.UI
 
         private void DisplayForm_MouseDown(object sender, MouseEventArgs e)
         {
-            NextConversation();
+            object ret = NextConversation();
             Invalidate();
+            if (ret == null) StartNew();
         }
     }
 }
