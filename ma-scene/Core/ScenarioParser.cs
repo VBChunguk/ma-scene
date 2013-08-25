@@ -57,8 +57,10 @@ namespace Vbc.MA.Scenario.Core
                         ret.Add(new BackgroundCommand(id));
                     }
                 }
-                else if (buf.StartsWith("MU ")) // music
+                else if (buf.StartsWith("VO ")) // voice
                 {
+                    string id = buf.Substring(3);
+                    ret.Add(new VoiceCommand(id));
                 }
                 else if (buf.StartsWith("C")) // character
                 {
@@ -69,8 +71,9 @@ namespace Vbc.MA.Scenario.Core
                     else
                         ret.Add(new CharacterCommand(int.Parse(argsSplit[0]), null));
                 }
-                else if (buf.StartsWith("<")) // special
+                else if (char.IsUpper(buf, 0) || char.IsSymbol(buf, 0)) // unknown
                 {
+                    ret.Add(new UnknownCommand(buf));
                 }
                 else // conversation
                 {
