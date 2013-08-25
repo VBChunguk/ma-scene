@@ -22,6 +22,10 @@
         /// </summary>
         SoundEffect,
         /// <summary>
+        /// 이펙트를 나타냅니다.
+        /// </summary>
+        Effect,
+        /// <summary>
         /// 대화를 나타냅니다.
         /// </summary>
         Conversation,
@@ -29,6 +33,10 @@
         /// 캐릭터 이미지를 나타냅니다.
         /// </summary>
         Character,
+        /// <summary>
+        /// 보이스를 나타냅니다.
+        /// </summary>
+        Voice,
         /// <summary>
         /// 알 수 없는 명령을 나타냅니다.
         /// </summary>
