@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 
 namespace Vbc.MA.Scenario.Core
@@ -53,8 +54,21 @@ namespace Vbc.MA.Scenario.Core
                     if (string.IsNullOrWhiteSpace(idRaw)) ret.Add(new BackgroundCommand());
                     else
                     {
-                        int id = int.Parse(idRaw);
-                        ret.Add(new BackgroundCommand(id));
+                        int id;
+                        if (int.TryParse(idRaw, out id))
+                            ret.Add(new BackgroundCommand(id));
+                        else
+                        {
+                            if (idRaw.StartsWith("color="))
+                            {
+                                string colors = idRaw.Substring(6);
+                                string[] colorValues = colors.Split(',');
+                                ret.Add(new BackgroundCommand(Color.FromArgb(
+                                    int.Parse(colorValues[0]), int.Parse(colorValues[1]),
+                                    int.Parse(colorValues[2]), int.Parse(colorValues[3])
+                                    )));
+                            }
+                        }
                     }
                 }
                 else if (buf.StartsWith("VO ")) // voice

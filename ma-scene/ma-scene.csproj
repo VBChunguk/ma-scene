@@ -69,6 +69,7 @@
     <Compile Include="Core\ScenarioCommand.cs" />
     <Compile Include="Core\ScenarioParser.cs" />
     <Compile Include="Core\TitleCommand.cs" />
+    <Compile Include="Core\UnknownCommand.cs" />
     <Compile Include="Core\VoiceCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
