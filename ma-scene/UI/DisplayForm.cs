@@ -98,24 +98,6 @@ namespace Vbc.MA.Scenario.UI
 
         public DisplayForm()
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.Description = "(SD 카드)/Android/data/com.square_enix.million_kr/files/save/ 디렉터리를 골라 주세요.";
-            string[] roots = Directory.GetLogicalDrives();
-            foreach (string root in roots)
-            {
-                string tpath = Path.Combine(root, @"Android\data\com.square_enix.million_kr\files\save");
-                if (Directory.Exists(tpath))
-                {
-                    fbd.SelectedPath = tpath;
-                    break;
-                }
-            }
-            fbd.ShowDialog();
-            Utilities.FileManager.BasePath = fbd.SelectedPath;
-            if (!Utilities.FileManager.IsValidPath)
-            {
-            }
-
             InitializeComponent();
             mNameFont = new Font("나눔고딕", 20);
             mContextFont = new Font("나눔고딕", 28);
@@ -138,7 +120,11 @@ namespace Vbc.MA.Scenario.UI
             ofd.Filter = "모든 파일|*";
             ofd.Multiselect = false;
             ofd.InitialDirectory = Path.Combine(Utilities.FileManager.BasePath, @"download\scenario");
-            ofd.ShowDialog();
+            if (ofd.ShowDialog() == DialogResult.Cancel)
+            {
+                Application.Exit();
+                return;
+            }
             StartNew(ofd.FileName);
         }
 
