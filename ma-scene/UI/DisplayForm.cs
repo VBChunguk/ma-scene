@@ -150,6 +150,7 @@ namespace Vbc.MA.Scenario.UI
             {
                 mCursor = 0;
                 Title = null;
+                Invalidate();
                 return;
             }
             Title = (title as TitleCommand).Title;
